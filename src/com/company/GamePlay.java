@@ -3,17 +3,24 @@ package com.company;
 public class GamePlay {
     private Player player;
     private char[][] board;
+    private char[][] boardCopy;
     private Box box;
 
     public GamePlay(int playerPosX, int playerPosY) {
         player=new Player(playerPosX, playerPosY);
         box=new Box(2,1);
         board= new char[][]{
-                {'#', '#', '#', '#', '#'},
-                {'#', ' ', ' ', ' ', '#'},
-                {'#', ' ', ' ', ' ', '#'},
-                {'#', ' ', ' ', ' ', '#'},
-                {'#', '#', '#', '#', '#'}};
+                {'#', '#', '#', '#', '#', '#'},
+                {'#', ' ', ' ', ' ', ' ', '#'},
+                {'#', 'o', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', ' ', ' ', '#'},
+                {'#', '#', '#', '#', '#', '#'}};
+        boardCopy=new char[][]{
+                {'#', '#', '#', '#', '#', '#'},
+                {'#', ' ', ' ', ' ', ' ', '#'},
+                {'#', 'o', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', ' ', ' ', '#'},
+                {'#', '#', '#', '#', '#', '#'}};
         board[playerPosX][playerPosY]= player.getId();
         board[box.getPosY()][box.getPosX()] = box.getId();
     }
@@ -34,19 +41,19 @@ public class GamePlay {
                 move(dir,x,y);
                 break;
             case 'a':
-                if(board[player.getPosY()][player.getPosX()-1]==' ') {
-                    moveP(dir);
-                }
+                x=-1;
+                y=0;
+                move(dir,x,y);
                 break;
             case 'w':
-                if(board[player.getPosY()-1][player.getPosX()]==' ') {
-                    moveP(dir);
-                }
+                y=-1;
+                x=0;
+                move(dir,x,y);
                 break;
             case 's':
-                if(board[player.getPosY()+1][player.getPosX()]==' ') {
-                    moveP(dir);
-                }
+                y=1;
+                x=0;
+                move(dir,x,y);
                 break;
             default:
                 break;
@@ -56,19 +63,26 @@ public class GamePlay {
     private void move(char dir, int x,int y) {
         char next;
         next=board[player.getPosY()+y][player.getPosX()+x];
-        if(next==' ')
+        if(next==' ' || next=='o')
             moveP(dir);
         else if(next=='B' || next=='b'){
-            next = board[box.getPosY()][box.getPosX()+1];
+            next = board[box.getPosY()+y][box.getPosX()+x];
             if(next==' '){
                 moveB(dir,false);
+                moveP(dir);
+            }
+            else if(next=='o'){
+                moveB(dir,true);
                 moveP(dir);
             }
         }
     }
 
     private void moveP(char dir) {
-        board[player.getPosY()][player.getPosX()] = ' ';
+        if(boardCopy[player.getPosY()][player.getPosX()] =='o')
+            board[player.getPosY()][player.getPosX()] = 'o';
+        else
+            board[player.getPosY()][player.getPosX()] = ' ';
         player.move(dir);
         board[player.getPosY()][player.getPosX()] = player.getId();
     }
