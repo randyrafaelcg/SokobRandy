@@ -12,8 +12,12 @@ public class BoardLevel {
         this.board = board;
         this.objectives = objectives;
         for(Pair<Integer,Integer> ob:objectives){
-            board[ob.getKey()][ob.getValue()]='o';
+            board[ob.getValue()][ob.getKey()]='o';
         }
+    }
+
+    public Vector<Pair<Integer, Integer>> getObjectives() {
+        return objectives;
     }
 
     public char getChar(int x, int y){

@@ -1,40 +1,35 @@
 package com.company;
 
+import com.company.model.BoardLevel;
 import com.company.model.Box;
 import com.company.model.Player;
+import javafx.util.Pair;
+
+import java.util.Vector;
 
 public class GamePlay {
     private Player player;
-    private char[][] board;
-    private char[][] boardCopy;
     private Box box;
+    private BoardLevel board;
 
     public GamePlay(int playerPosX, int playerPosY) {
         player=new Player(playerPosX, playerPosY);
+        char [][] test=new char[][] {
+            {'#', '#', '#', '#', '#', '#'},
+            {'#', ' ', ' ', ' ', ' ', '#'},
+            {'#', ' ', ' ', ' ', ' ', '#'},
+            {'#', ' ', ' ', ' ', ' ', '#'},
+            {'#', '#', '#', '#', '#', '#'}};
         box=new Box(2,2);
-        board= new char[][]{
-                {'#', '#', '#', '#', '#', '#'},
-                {'#', ' ', ' ', ' ', ' ', '#'},
-                {'#', ' ', ' ', 'o', ' ', '#'},
-                {'#', ' ', ' ', ' ', ' ', '#'},
-                {'#', '#', '#', '#', '#', '#'}};
-        boardCopy=new char[][]{
-                {'#', '#', '#', '#', '#', '#'},
-                {'#', ' ', ' ', ' ', ' ', '#'},
-                {'#', ' ', ' ', 'o', ' ', '#'},
-                {'#', ' ', ' ', ' ', ' ', '#'},
-                {'#', '#', '#', '#', '#', '#'}};
-        board[playerPosX][playerPosY]= player.getId();
-        board[box.getPosY()][box.getPosX()] = box.getId();
+        Vector<Pair<Integer,Integer>> prueba=new Vector<>();
+        prueba.add((new Pair(1,2)));
+        board= new BoardLevel(test,prueba);
+        board.setChar(player.getId(), playerPosX,playerPosY);
+        board.setChar(box.getId(), box.getPosX(), box.getPosY());
     }
 
     public void print(){
-        System.out.print("\n\n\n\n\n\n");
-        for (char[] c:board) {
-            for(char elem:c)
-                System.out.print(elem+" ");
-            System.out.println();
-        }
+        board.print();
     }
     public void movePlayer(char dir){
         int x,y;
@@ -66,11 +61,11 @@ public class GamePlay {
 
     private void move(char dir, int x,int y) {
         char next;
-        next=board[player.getPosY()+y][player.getPosX()+x];
+        next=board.getChar(player.getPosX()+x, player.getPosY()+y);
         if(next==' ' || next=='o')
             moveP(dir);
         else if(next=='B' || next=='b'){
-            next = board[box.getPosY()+y][box.getPosX()+x];
+            next = board.getChar(box.getPosX()+x, box.getPosY()+y);
             if(next==' '){
                 moveB(dir,false);
                 moveP(dir);
@@ -78,34 +73,26 @@ public class GamePlay {
             else if(next=='o'){
                 moveB(dir,true);
                 moveP(dir);
-
             }
         }
     }
 
     private void moveP(char dir) {
-        if(boardCopy[player.getPosY()][player.getPosX()] =='o')
-            board[player.getPosY()][player.getPosX()] = 'o';
+        if(board.getObjectives().contains(new Pair(player.getPosX(),player.getPosY())))
+            board.setChar('o', player.getPosX(), player.getPosY());
         else
-            board[player.getPosY()][player.getPosX()] = ' ';
+            board.setChar(' ', player.getPosX(), player.getPosY());
         player.move(dir);
-        board[player.getPosY()][player.getPosX()] = player.getId();
+        board.setChar(player.getId(), player.getPosX(), player.getPosY());
     }
 
     private void moveB(char dir, boolean inPlace){
-        board[box.getPosY()][box.getPosX()] = ' ';
+        board.setChar(' ', box.getPosX(), box.getPosY());
         box.move(dir, inPlace);
-        board[box.getPosY()][box.getPosX()] = box.getId();
+        board.setChar(box.getId(), box.getPosX(), box.getPosY());
     }
 
     public boolean isGameOver() {
-        for(char[] c:board){
-            for(char elem:c){
-                if(elem=='o' || elem == 'b'){
-                    return true;
-                }
-            }
-        }
-        return false;
+        return board.isLevelOver();
     }
 }
