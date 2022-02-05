@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.model.Box;
+import com.company.model.Player;
+
 public class GamePlay {
     private Player player;
     private char[][] board;
@@ -8,17 +11,17 @@ public class GamePlay {
 
     public GamePlay(int playerPosX, int playerPosY) {
         player=new Player(playerPosX, playerPosY);
-        box=new Box(2,1);
+        box=new Box(2,2);
         board= new char[][]{
                 {'#', '#', '#', '#', '#', '#'},
-                {'#', ' ', ' ', 'o', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', 'o', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
                 {'#', '#', '#', '#', '#', '#'}};
         boardCopy=new char[][]{
                 {'#', '#', '#', '#', '#', '#'},
-                {'#', ' ', ' ', 'o', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
+                {'#', ' ', ' ', 'o', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
                 {'#', '#', '#', '#', '#', '#'}};
         board[playerPosX][playerPosY]= player.getId();
@@ -27,7 +30,6 @@ public class GamePlay {
 
     public void print(){
         System.out.print("\n\n\n\n\n\n");
-
         for (char[] c:board) {
             for(char elem:c)
                 System.out.print(elem+" ");
