@@ -17,7 +17,7 @@ public class Main {
         char dir;
         game=new GamePlay(1,1);
         enterKey();
-        while(true){
+        while(game.isGameOver()){
             game.print();
             System.out.print("Ingrese direccion (wasd): ");
             dir=scan.next().charAt(0);

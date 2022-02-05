@@ -11,14 +11,14 @@ public class GamePlay {
         box=new Box(2,1);
         board= new char[][]{
                 {'#', '#', '#', '#', '#', '#'},
+                {'#', ' ', ' ', 'o', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
-                {'#', 'o', ' ', ' ', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
                 {'#', '#', '#', '#', '#', '#'}};
         boardCopy=new char[][]{
                 {'#', '#', '#', '#', '#', '#'},
+                {'#', ' ', ' ', 'o', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
-                {'#', 'o', ' ', ' ', ' ', '#'},
                 {'#', ' ', ' ', ' ', ' ', '#'},
                 {'#', '#', '#', '#', '#', '#'}};
         board[playerPosX][playerPosY]= player.getId();
@@ -26,6 +26,8 @@ public class GamePlay {
     }
 
     public void print(){
+        System.out.print("\n\n\n\n\n\n");
+
         for (char[] c:board) {
             for(char elem:c)
                 System.out.print(elem+" ");
@@ -74,6 +76,7 @@ public class GamePlay {
             else if(next=='o'){
                 moveB(dir,true);
                 moveP(dir);
+
             }
         }
     }
@@ -91,5 +94,16 @@ public class GamePlay {
         board[box.getPosY()][box.getPosX()] = ' ';
         box.move(dir, inPlace);
         board[box.getPosY()][box.getPosX()] = box.getId();
+    }
+
+    public boolean isGameOver() {
+        for(char[] c:board){
+            for(char elem:c){
+                if(elem=='o' || elem == 'b'){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
