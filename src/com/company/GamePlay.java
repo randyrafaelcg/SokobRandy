@@ -26,11 +26,12 @@ public class GamePlay {
         }
     }
     public void movePlayer(char dir){
+        int x,y;
         switch (dir){
             case 'd':
-                if(board[player.getPosY()][player.getPosX()+1]==' ') {
-                    moveP(dir);
-                }
+                y=0;
+                x=1;
+                move(dir,x,y);
                 break;
             case 'a':
                 if(board[player.getPosY()][player.getPosX()-1]==' ') {
@@ -52,9 +53,29 @@ public class GamePlay {
         }
     }
 
+    private void move(char dir, int x,int y) {
+        char next;
+        next=board[player.getPosY()+y][player.getPosX()+x];
+        if(next==' ')
+            moveP(dir);
+        else if(next=='B' || next=='b'){
+            next = board[box.getPosY()][box.getPosX()+1];
+            if(next==' '){
+                moveB(dir,false);
+                moveP(dir);
+            }
+        }
+    }
+
     private void moveP(char dir) {
         board[player.getPosY()][player.getPosX()] = ' ';
         player.move(dir);
         board[player.getPosY()][player.getPosX()] = player.getId();
+    }
+
+    private void moveB(char dir, boolean inPlace){
+        board[box.getPosY()][box.getPosX()] = ' ';
+        box.move(dir, inPlace);
+        board[box.getPosY()][box.getPosX()] = box.getId();
     }
 }
