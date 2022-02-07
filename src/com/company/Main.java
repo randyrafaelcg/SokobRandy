@@ -23,27 +23,5 @@ public class Main {
             dir=scan.next().charAt(0);
             game.movePlayer(dir);
         }
-
-
-//        char[][] board={{' ',' '},
-//                        {' ',' '}};
-//        Player player=new Player(0,0);
-//        board[player.getPosY()][player.getPosX()]=player.getId();
-//        for (char[] c: board) {
-//            for(char elem:c){
-//                System.out.print(elem);
-//            }
-//            System.out.println();
-//
-//        }
-//        player.move('d',board[player.getPosY()][player.getPosX()+1]);
-//        board[player.getPosY()][player.getPosX()]=player.getId();
-//        for (char[] c: board) {
-//            for(char elem:c){
-//                System.out.print(elem);
-//            }
-//            System.out.println();
-//
-//        }
     }
 }

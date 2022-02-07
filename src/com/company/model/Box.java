@@ -18,11 +18,9 @@ public class Box {
     public boolean isInPlace() {return inPlace;}
     public char getId() {return id;}
 
-    public void setId(char id) {this.id = id;}
-
     public void move(char dir,boolean inPlace){
         this.inPlace=inPlace;
-        if(inPlace==true)
+        if(inPlace)
             id='B';
         else
             id='b';
