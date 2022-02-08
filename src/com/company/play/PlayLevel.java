@@ -1,12 +1,8 @@
-package com.company;
+package com.company.play;
 
-import com.company.model.BoardUsage;
 import com.company.model.Box;
 import com.company.model.Level;
-import com.company.model.Player;
 import javafx.util.Pair;
-
-import java.util.Vector;
 
 public class PlayLevel {
     private BoardUsage board;

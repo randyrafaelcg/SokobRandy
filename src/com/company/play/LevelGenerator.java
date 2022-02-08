@@ -1,4 +1,4 @@
-package com.company;
+package com.company.play;
 
 import com.company.model.Level;
 import com.company.model.Player;
@@ -62,5 +62,18 @@ public class LevelGenerator {
         boxesCoordinates2.add(new Pair<>(3,3));
         lvl2=new Level(player2,objectives2,boxesCoordinates2,board2);
         levels.add(lvl2);
+        //--------------Level 3------------
+        Level lvl3;
+        Player player3=new Player(1,1);
+        Vector<Pair<Integer,Integer>> objectives3=new Vector<>();
+        Vector<Pair<Integer,Integer>> boxesCoordinates3=new Vector<>();
+        objectives3.add(new Pair<>(4,6));
+        objectives3.add(new Pair<>(4,1));
+        objectives3.add(new Pair<>(1,6));
+        boxesCoordinates3.add(new Pair<>(3,4));
+        boxesCoordinates3.add(new Pair<>(3,1));
+        boxesCoordinates3.add(new Pair<>(3,3));
+        lvl3=new Level(player3,objectives3,boxesCoordinates3,board3);
+        levels.add(lvl3);
     }
 }
