@@ -1,6 +1,9 @@
 package com.company;
 
+import com.company.model.Level;
+
 import java.util.Scanner;
+import java.util.Vector;
 
 public class Main {
 
@@ -12,16 +15,21 @@ public class Main {
 
     public static void main(String[] args) {
 	    System.out.println("Hello World");
-        GamePlay game;
+        PlayLevel game;
+        LevelGenerator newGame=new LevelGenerator();
+        Vector<Level> levels=newGame.getLevels();
         Scanner scan=new Scanner(System.in);
         char dir;
-        game=new GamePlay(1,1);
+        //game=new PlayLevel(1,1);
         enterKey();
-        while(!game.isGameOver()){
-            game.print();
-            System.out.print("Ingrese direccion (wasd): ");
-            dir=scan.next().charAt(0);
-            game.movePlayer(dir);
+        for(Level lvl:levels){
+            game=new PlayLevel(lvl);
+            while(!game.isLevelOver()){
+                game.print();
+                System.out.print("Ingrese direccion (wasd): ");
+                dir=scan.next().charAt(0);
+                game.movePlayer(dir);
+            }
         }
     }
 }

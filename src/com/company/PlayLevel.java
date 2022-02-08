@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.model.Board;
+import com.company.model.BoardUsage;
 import com.company.model.Box;
 import com.company.model.Level;
 import com.company.model.Player;
@@ -8,27 +8,13 @@ import javafx.util.Pair;
 
 import java.util.Vector;
 
-public class GamePlay {
-    private Player player;
-    private Board board;
+public class PlayLevel {
+    private BoardUsage board;
     private Level level;
 
-    public GamePlay(int playerPosX, int playerPosY) {
-        char [][] test=new char[][] {
-            {'#', '#', '#', '#', '#', '#'},
-            {'#', ' ', ' ', ' ', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', '#'},
-            {'#', ' ', ' ', ' ', ' ', '#'},
-            {'#', '#', '#', '#', '#', '#'}};
-        player=new Player(playerPosX, playerPosY);
-        Vector<Pair<Integer,Integer>> objetivos=new Vector<>();
-        Vector<Pair<Integer,Integer>> coordenadas=new Vector<>();
-        objetivos.add((new Pair(1,2)));
-        objetivos.add(new Pair(1,3));
-        coordenadas.add(new Pair(2,2));
-        coordenadas.add(new Pair(2,3));
-        level=new Level(player,objetivos,coordenadas);
-        board= new Board(test,level.getObjectives());
+    public PlayLevel(Level level) {
+        this.level=level;
+        board= new BoardUsage(level.getBoard(),level.getObjectives());
         board.setChar(level.getPlayer().getId(),level.getPlayer().getPosX(),level.getPlayer().getPosY());
         for(Box b: level.getBoxes()){
             board.setChar(b.getId(),b.getPosX(),b.getPosY());
@@ -68,8 +54,8 @@ public class GamePlay {
 
     private void move(char dir, int x,int y) {
         char next;
-        int nextX=player.getPosX()+x;
-        int nextY=player.getPosY()+y;
+        int nextX=level.getPlayer().getPosX()+x;
+        int nextY=level.getPlayer().getPosY()+y;
         next=board.getChar(nextX, nextY);
         if(next==' ' || next=='o')
             moveP(dir);
@@ -88,12 +74,12 @@ public class GamePlay {
     }
 
     private void moveP(char dir) {
-        if(board.getObjectives().contains(new Pair(player.getPosX(),player.getPosY())))
-            board.setChar('o', player.getPosX(), player.getPosY());
+        if(board.getObjectives().contains(new Pair(level.getPlayer().getPosX(),level.getPlayer().getPosY())))
+            board.setChar('o', level.getPlayer().getPosX(), level.getPlayer().getPosY());
         else
-            board.setChar(' ', player.getPosX(), player.getPosY());
-        player.move(dir);
-        board.setChar(player.getId(), player.getPosX(), player.getPosY());
+            board.setChar(' ', level.getPlayer().getPosX(), level.getPlayer().getPosY());
+        level.getPlayer().move(dir);
+        board.setChar(level.getPlayer().getId(), level.getPlayer().getPosX(), level.getPlayer().getPosY());
     }
 
     private void moveB(Box box, char dir, boolean inPlace){
@@ -105,7 +91,7 @@ public class GamePlay {
         level.setNewBoxPosCoordinates(actualX,actualY,box.getPosX(),box.getPosY());
     }
 
-    public boolean isGameOver() {
+    public boolean isLevelOver() {
         return board.isLevelOver();
     }
 }

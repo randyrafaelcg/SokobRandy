@@ -11,11 +11,13 @@ public class Level {
     private Vector<Box> boxes;
     private Vector<Pair<Integer,Integer>> objectives;
     private Vector<Pair<Integer,Integer>> boxesCoordinates;
+    private char[][] board;
 
-    public Level(Player player, Vector<Pair<Integer, Integer>> objectives, Vector<Pair<Integer, Integer>> boxesCoordinates) {
+    public Level(Player player, Vector<Pair<Integer, Integer>> objectives, Vector<Pair<Integer, Integer>> boxesCoordinates, char[][] board) {
         this.player = player;
         this.objectives = objectives;
         this.boxesCoordinates = boxesCoordinates;
+        this.board=board;
         boxes=new Vector<>();
         for(Pair<Integer,Integer> xy: boxesCoordinates){
             Box newBox=new Box(xy.getKey(),xy.getValue());
@@ -23,6 +25,7 @@ public class Level {
         }
     }
 
+    public char[][] getBoard() {return board;}
     public Player getPlayer() {return player;}
     public Vector<Box> getBoxes() {return boxes;}
     public Vector<Pair<Integer, Integer>> getObjectives() {return objectives;}

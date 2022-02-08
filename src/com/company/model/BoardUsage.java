@@ -4,11 +4,11 @@ import javafx.util.Pair;
 
 import java.util.Vector;
 
-public class Board {
+public class BoardUsage {
     private char[][] board;
     private Vector<Pair<Integer,Integer>> objectives;
 
-    public Board(char[][] board, Vector<Pair<Integer, Integer>> objectives) {
+    public BoardUsage(char[][] board, Vector<Pair<Integer, Integer>> objectives) {
         this.board = board;
         this.objectives = objectives;
         for(Pair<Integer,Integer> ob:objectives){
