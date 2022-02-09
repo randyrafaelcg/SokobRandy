@@ -15,7 +15,6 @@ public class Box {
 
     public int getPosX() {return posX;}
     public int getPosY() {return posY;}
-    public boolean isInPlace() {return inPlace;}
     public char getId() {return id;}
 
     public void move(char dir,boolean inPlace){

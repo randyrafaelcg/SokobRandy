@@ -3,7 +3,7 @@ package com.company.model;
 public class Player {
     private int posX;
     private int posY;
-    private char id;
+    private final char id;
 
     public Player(int posX, int posY) {
         this.posX = posX;

@@ -9,7 +9,6 @@ import java.util.Vector;
 
 public class GamePlay {
 
-    private PlayLevel game;
     private Vector<Level> levels;
     private LevelGenerator newGame;
 
@@ -22,7 +21,7 @@ public class GamePlay {
         intro();
         char dir;
         for(Level lvl:levels){
-            game=new PlayLevel(lvl);
+            PlayLevel game = new PlayLevel(lvl);
             while(!game.isLevelOver()){
                 game.print();
                 System.out.print("Direction (wasd) ");

@@ -1,17 +1,15 @@
 package com.company.model;
 
-import com.company.model.Box;
-import com.company.model.Player;
 import javafx.util.Pair;
 
 import java.util.Vector;
 
 public class Level {
-    private Player player;
-    private Vector<Box> boxes;
-    private Vector<Pair<Integer,Integer>> objectives;
-    private Vector<Pair<Integer,Integer>> boxesCoordinates;
-    private char[][] board;
+    private final Player player;
+    private final Vector<Box> boxes;
+    private final Vector<Pair<Integer,Integer>> objectives;// In pair key is X and value is Y
+    private final Vector<Pair<Integer,Integer>> boxesCoordinates;// In pair key is X and value is Y
+    private final char[][] board;
 
     public Level(Player player, Vector<Pair<Integer, Integer>> objectives, Vector<Pair<Integer, Integer>> boxesCoordinates, char[][] board) {
         this.player = player;
@@ -29,10 +27,9 @@ public class Level {
     public Player getPlayer() {return player;}
     public Vector<Box> getBoxes() {return boxes;}
     public Vector<Pair<Integer, Integer>> getObjectives() {return objectives;}
-    public Vector<Pair<Integer, Integer>> getBoxesCoordinates() {return boxesCoordinates;}
 
     public Box getBoxByCoordinates(int x, int y){
-        int pos=boxesCoordinates.indexOf(new Pair<>(x,y));//boxes and it's coordinates must have same position in vectors
+        int pos=boxesCoordinates.indexOf(new Pair<>(x,y));//boxes and it's coordinates must have the same position in vectors
         return boxes.get(pos);
     }
 

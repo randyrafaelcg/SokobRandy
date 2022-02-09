@@ -5,8 +5,8 @@ import javafx.util.Pair;
 import java.util.Vector;
 
 public class BoardUsage {
-    private char[][] board;
-    private Vector<Pair<Integer,Integer>> objectives;
+    private final char[][] board;
+    private final Vector<Pair<Integer,Integer>> objectives;
 
     public BoardUsage(char[][] board, Vector<Pair<Integer, Integer>> objectives) {
         this.board = board;
@@ -41,7 +41,7 @@ public class BoardUsage {
         System.out.print("\n\n\n\n\n\n");
         for (char[] c:board) {
             for(char elem:c)
-                System.out.print(elem+" ");
+                System.out.print(elem+"  ");
             System.out.println();
         }
     }
